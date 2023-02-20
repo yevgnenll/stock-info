@@ -1,4 +1,4 @@
-package me.yevgnenll.stock.dto
+package me.yevgnenll.stock.dto.embed
 
 
 data class CurrentTradingPeriod(

@@ -1,7 +1,7 @@
-package me.yevgnenll.stock.dto
+package me.yevgnenll.stock.dto.embed
 
 
-data class Pre(
+data class Regular(
     val timezone: String? = null,
     val end: Int? = null,
     val start: Int? = null,
