@@ -1,5 +1,6 @@
 package me.yevgnenll.stock.entity
 
+import me.yevgnenll.stock.dto.embed.Quote
 import me.yevgnenll.stock.extension.convertKstToUtc
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDate
@@ -19,8 +20,7 @@ data class Stock(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    var name: String? = null,
-
+    val name: String? = null,
     val timestamp: LocalDate,
 
     var low: Int,
@@ -35,18 +35,15 @@ data class Stock(
     @Column(name = "updated_at")
     var updatedAt: LocalDateTime? = null
 ) {
-    constructor(
-        timestamp: LocalDate,
-        name: String,
-        low: Double, high: Double, close: Double, open: Double, volume: Double
-    ) : this(
-        timestamp = timestamp,
+
+    constructor(timestamp: List<LocalDateTime>, name: String, quote: Quote, index: Int): this(
+        timestamp = timestamp[index].toLocalDate(),
         name = name,
-        low = low.toInt(),
-        high = high.toInt(),
-        close = close.toInt(),
-        open = open.toInt(),
-        volume = volume.toInt(),
+        high = quote.high[index].toInt(),
+        low = quote.low[index].toInt(),
+        open = quote.open[index].toInt(),
+        close = quote.close[index].toInt(),
+        volume = quote.volume[index].toInt(),
     )
 
     @PrePersist
@@ -61,7 +58,4 @@ data class Stock(
         updatedAt = LocalDateTime.now().convertKstToUtc()
     }
 
-    fun placeStockName(name: String) {
-        this.name = name
-    }
 }
