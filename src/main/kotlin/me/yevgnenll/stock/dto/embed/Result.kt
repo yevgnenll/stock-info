@@ -1,6 +1,7 @@
 package me.yevgnenll.stock.dto.embed
 
 import me.yevgnenll.stock.config.UTC_TIMEZONE
+import me.yevgnenll.stock.entity.Stock
 import java.time.Instant
 import java.time.LocalDateTime
 
@@ -22,5 +23,9 @@ data class Result(
         return timestamp.map {
             convertTo(it)
         }.toList()
+    }
+
+    fun separateStockInfo(): List<Stock> {
+        return indicators.exportEntities(convertTo())
     }
 }

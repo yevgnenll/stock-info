@@ -3,11 +3,12 @@ package me.yevgnenll.stock.dto.embed
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 
 class QuoteTest {
 
     @Test
-    fun `Quote 내부 collection들의 사이즈가 timestamp 사이즈와 다르면 에러를 반환한다`() {
+    fun `Quote 내부 collection들의 사이즈가 하나라도 timestamp 사이즈와 다르면 에러를 반환한다`() {
 
         assertThrows(IllegalArgumentException::class.java) {
             Quote(
@@ -16,7 +17,7 @@ class QuoteTest {
                 high = listOf(12.0, 12.0, 12.0),
                 low = listOf(13.0, 13.0, 13.0),
                 volume = listOf(14.0, 14.0, 14.0)
-            ).separate(3)
+            ).convertTo(listOf(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now()))
         }
     }
 

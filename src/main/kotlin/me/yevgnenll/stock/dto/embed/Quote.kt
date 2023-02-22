@@ -1,6 +1,8 @@
 package me.yevgnenll.stock.dto.embed
 
+import me.yevgnenll.stock.entity.Stock
 import org.slf4j.LoggerFactory
+import java.time.LocalDateTime
 
 data class Quote(
     val open: List<Double> = listOf(),
@@ -17,43 +19,25 @@ data class Quote(
     internal fun xorAllCollectionSize(timestampSize: Int): Int =
         open.size xor high.size xor close.size xor low.size xor volume.size xor timestampSize
 
+    private fun isNotMatched(xorResult: Int): Boolean = xorResult != 0
+
     private fun validate(timestampSize: Int) {
         val xorResult = xorAllCollectionSize(timestampSize)
 
-        if (xorResult != 0) {
+        if (isNotMatched(xorResult)) {
             logger.error("Stock Quete data length is INVALID")
             throw IllegalArgumentException("Data is INVALID")
         }
     }
 
-    fun separate(timestampSize: Int): List<QuoteItem> {
-        validate(timestampSize)
+    private fun convertTo(index: Int, timestamp: List<LocalDateTime>): Stock =
+        Stock(timestamp[index].toLocalDate(),
+            open[index], high[index], close[index], low[index], volume[index])
 
-        return volume.indices.map {
-            QuoteItem(it, open, high, close, low, volume)
+    fun convertTo(timestamp: List<LocalDateTime>): List<Stock> {
+        validate(timestamp.size)
+        return timestamp.indices.map {
+            convertTo(it, timestamp)
         }
     }
-}
-
-data class QuoteItem(
-    val open: Double,
-    val high: Double,
-    val close: Double,
-    val low: Double,
-    val volume: Double,
-) {
-    constructor(
-        index: Int,
-        open: List<Double>,
-        high: List<Double>,
-        close: List<Double>,
-        low: List<Double>,
-        volume: List<Double>,
-    ) : this(
-        open = open[index],
-        high = high[index],
-        close = close[index],
-        low = low[index],
-        volume = volume[index],
-    )
 }
