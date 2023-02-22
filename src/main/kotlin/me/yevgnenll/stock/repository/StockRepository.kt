@@ -10,4 +10,6 @@ interface StockRepository: JpaRepository<Stock, Long> {
 
     fun findByTimestampAndName(timestamp: LocalDate, name: String): Stock?
 
+    fun findTop5ByOrderByTimestampDesc(): List<Stock>
+
 }

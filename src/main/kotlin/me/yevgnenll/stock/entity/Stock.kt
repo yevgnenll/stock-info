@@ -23,6 +23,7 @@ data class Stock(
     val name: String,
     val timestamp: LocalDate,
 
+    // TODO: Int -> Long
     var low: Int,
     var high: Int,
     var close: Int,
@@ -34,7 +35,7 @@ data class Stock(
 
     @Column(name = "updated_at")
     var updatedAt: LocalDateTime? = null
-) {
+): Comparable<LocalDate> {
 
     constructor(timestamp: List<LocalDateTime>, name: String, quote: Quote, index: Int): this(
         timestamp = timestamp[index].toLocalDate(),
@@ -65,4 +66,7 @@ data class Stock(
         close = stock.close
     }
 
+    override fun compareTo(other: LocalDate): Int {
+        return timestamp.compareTo(other)
+    }
 }

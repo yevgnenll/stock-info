@@ -38,4 +38,11 @@ class StockService(
         }
     }
 
+    @Transactional(readOnly = true)
+    fun findFiveDays(): List<Stock> {
+        return stockRepository.findTop5ByOrderByTimestampDesc().sortedBy {
+            it.timestamp
+        }
+    }
+
 }
