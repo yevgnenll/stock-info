@@ -10,7 +10,7 @@ class StockInfoDtoTest {
     private val objectMapper = ObjectMapper()
 
     private fun readStockInfoDto(): StockInfoDto =
-        ResourceUtils.getFile("classpath:testResult.json").let {
+        ResourceUtils.getFile("classpath:2023Feb20.json").let {
             objectMapper.readValue(it.readText(Charsets.UTF_8), StockInfoDto::class.java)
         }
 
