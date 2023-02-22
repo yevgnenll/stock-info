@@ -58,4 +58,11 @@ data class Stock(
         updatedAt = LocalDateTime.now().convertKstToUtc()
     }
 
+    fun update(stock: Stock) {
+        high = stock.high
+        low = stock.low
+        volume = stock.volume
+        close = stock.close
+    }
+
 }
