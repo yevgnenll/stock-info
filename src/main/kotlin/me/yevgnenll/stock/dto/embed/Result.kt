@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 
 data class Result(
-    val meta: Meta? = Meta(),
+    val meta: Meta = Meta(),
     val timestamp: List<Long> = arrayListOf(),
     val indicators: Indicators = Indicators()
 ) {
@@ -26,6 +26,6 @@ data class Result(
     }
 
     fun separateStockInfo(): List<Stock> {
-        return indicators.exportEntities(convertTo())
+        return indicators.exportEntities(convertTo(), meta.symbol!!)
     }
 }

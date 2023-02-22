@@ -17,7 +17,7 @@ class QuoteTest {
                 high = listOf(12.0, 12.0, 12.0),
                 low = listOf(13.0, 13.0, 13.0),
                 volume = listOf(14.0, 14.0, 14.0)
-            ).convertTo(listOf(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now()))
+            ).convertTo(listOf(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now()), "name")
         }
     }
 
