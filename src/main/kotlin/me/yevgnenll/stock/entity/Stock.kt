@@ -20,12 +20,12 @@ data class Stock(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    val name: String? = null,
+    val name: String,
     val timestamp: LocalDate,
 
     var low: Int,
     var high: Int,
-    val close: Int,
+    var close: Int,
     val open: Int,
     var volume: Int,
 
