@@ -13,7 +13,7 @@ data class Quote(
 ) {
 
     companion object {
-        private val logger = LoggerFactory.getLogger(javaClass)
+        private val logger = LoggerFactory.getLogger(Quote::class.java)
     }
 
     internal fun xorAllCollectionSize(timestampSize: Int): Int =
@@ -32,7 +32,7 @@ data class Quote(
 
     private fun convertTo(index: Int, timestamp: List<LocalDateTime>): Stock =
         Stock(timestamp[index].toLocalDate(),
-            open[index], high[index], close[index], low[index], volume[index])
+            low[index], high[index], close[index], open[index], volume[index])
 
     fun convertTo(timestamp: List<LocalDateTime>): List<Stock> {
         validate(timestamp.size)
