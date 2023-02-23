@@ -4,3 +4,21 @@ server:
 
 yahoo:
   financeUrl: https://query1.finance.yahoo.com/v8/finance/chart/
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: >-
+      jdbc:mysql://127.0.0.1:3306/stocks?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: somePassword
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    open-in-view: false

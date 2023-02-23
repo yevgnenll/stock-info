@@ -8,9 +8,9 @@ data class Indicators(
     val quote: List<Quote> = listOf(),
     val adjclose: List<Adjclose> = listOf(),
 ) {
-    fun exportEntities(timestamp: List<LocalDateTime>): List<Stock> {
+    fun exportEntities(timestamp: List<LocalDateTime>, name: String): List<Stock> {
         return quote.map {
-            it.convertTo(timestamp)
+            it.convertTo(timestamp, name)
         }.flatten()
     }
 }

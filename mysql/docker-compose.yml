@@ -1,0 +1,15 @@
+version: "3"
+services:
+  stock:
+    platform: linux/amd64
+    image: amd64/mysql:5.7
+    volumes:
+      - ./init/db:/init-db
+      - ./init/mysql:/init-mysql
+      - ./volume/logs:/var/log/mysql
+      - ./init/seeding.sh:/docker-entrypoint-initdb.d/seeding.sh
+    environment:
+      - TZ=UTC
+      - MYSQL_ROOT_PASSWORD=somePassword
+    ports:
+      - '3306:3306'
