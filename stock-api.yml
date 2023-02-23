@@ -1,0 +1,52 @@
+openapi: 3.0.1
+info:
+  title: Stock API
+  description: Stock API의 명세서 입니다.
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/stocks
+tags:
+- name: stockController
+  description: 주식 5일치 API
+paths:
+  /stocks:
+    get:
+      tags:
+      - stockController
+      description: 주식 데이터 5일치 반환
+      operationId: getFinanceInfo
+      responses:
+        "200":
+          description: 주식 데이터 5일치 반환 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/stock'
+components:
+  schemas:
+    stock:
+      type: object
+      properties:
+        date:
+          description: 주식의 날짜
+          example: 2023-02-17
+        name:
+          description: 주식의 이름
+          example: 005930.KS
+        high:
+          description: 주식 최고 가격
+          example: 63300
+        low:
+          description: 주식 최저 가격
+          example: 62400
+        open:
+          description: 시장 오픈 가격
+          example: 62900
+        close:
+          description: 시장 마감 가격
+          example: 62600
+        volume:
+          description: 거래량
+          example: 28613

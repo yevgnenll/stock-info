@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.7.8"
 	id("io.spring.dependency-management") version "1.1.0"
+	id("org.springdoc.openapi-gradle-plugin") version "1.4.0"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
 	kotlin("plugin.jpa") version "1.7.22"
@@ -11,7 +12,7 @@ plugins {
 }
 
 group = "me.yevgnenll"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -26,6 +27,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
 	runtimeOnly("mysql:mysql-connector-java:8.0.28")
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.14")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -44,4 +46,11 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+openApi { // yaml 파일을 얻어냄
+	apiDocsUrl.set("http://localhost:8080/v3/api-docs.yaml")
+	outputDir.set(file("$rootDir/"))
+	outputFileName.set("stock-api.yml")
+	waitTimeInSeconds.set(5)
 }
