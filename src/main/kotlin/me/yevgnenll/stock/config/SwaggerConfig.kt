@@ -18,7 +18,7 @@ class SwaggerConfig {
             .build()
 
     @Bean
-    fun producerRestFulApi(): OpenAPI = OpenAPI()
+    fun produceRestFulApi(): OpenAPI = OpenAPI()
         .info(Info()
             .title("Stock API")
             .description("Stock API의 명세서 입니다.")
