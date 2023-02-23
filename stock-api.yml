@@ -1,0 +1,52 @@
+openapi: 3.0.1
+info:
+  title: Stock API
+  description: Stock API의 명세서 입니다.
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/stocks
+tags:
+- name: 저장된 주식 반환 API
+  description: 저장된 5일치의 주식 데이터를 날짜 기준 오름차순으로 반환합니다.
+paths:
+  /stocks/:
+    get:
+      tags:
+      - 저장된 주식 반환 API
+      description: 주식 데이터 5일치 반환
+      operationId: getFinanceInfo
+      responses:
+        "200":
+          description: 주식 데이터 5일치 반환 성공
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiResponseDto'
+  /stocks:
+    get:
+      tags:
+      - 저장된 주식 반환 API
+      description: 주식 데이터 5일치 반환
+      operationId: getFinanceInfo_1
+      responses:
+        "200":
+          description: 주식 데이터 5일치 반환 성공
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ApiResponseDto'
+components:
+  schemas:
+    ApiResponseDto:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+          - BAD_REQUEST
+        detail:
+          type: string
+        data:
+          type: object
