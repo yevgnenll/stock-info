@@ -15,13 +15,16 @@ class StockService(
 
     @PostConstruct
     private fun initStockData() {
-        // https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?interval=1d&range=5d
-        return callStockApiManager.requestStockData("005930.KS", "1d", "5d").let {
-            it.exportStockEntity()
-        }.let {
+        fetchStockData().also {
             saveStockList(it)
         }
     }
+
+    // https://query1.finance.yahoo.com/v8/finance/chart/005930.KS?interval=1d&range=5d
+    private fun fetchStockData(): List<Stock> =
+        callStockApiManager.requestStockData("005930.KS", "1d", "5d").let {
+            it.exportStockEntity()
+        }
 
     private fun updateOrCreate(stock: Stock): Stock {
         return stockRepository.findByTimestampAndName(stock.timestamp, stock.name)?.also {
