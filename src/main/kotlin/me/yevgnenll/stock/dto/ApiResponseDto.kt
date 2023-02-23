@@ -1,14 +1,16 @@
 package me.yevgnenll.stock.dto
 
+import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Schema
-import org.springframework.http.HttpStatus
 
 data class ApiResponseDto(
     @Schema(description = "API에서 정의한 코드", defaultValue = "SUCCESS")
     val code: ApiCode,
     @Schema(description = "코드의 설명")
     val detail: String,
-    @Schema(description = "반환 데이터")
+    @ArraySchema(
+        schema = Schema(description = "반환 데이터", oneOf = [StockResponseDto::class])
+    )
     val data: Any? = null,
 ) {
 
@@ -24,11 +26,3 @@ data class ApiResponseDto(
 
 }
 
-enum class ApiCode(
-    val message: String,
-    val statusCode: HttpStatus,
-) {
-    SUCCESS("Success", HttpStatus.OK),
-    ERROR("Server Error", HttpStatus.INTERNAL_SERVER_ERROR),
-    BAD_REQUEST("Invalid Parameter", HttpStatus.BAD_REQUEST),
-}
