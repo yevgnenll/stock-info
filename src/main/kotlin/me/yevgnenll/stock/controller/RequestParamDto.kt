@@ -9,13 +9,13 @@ data class RequestParamDto(
     val range: String,
 ) {
     companion object {
-        val validRange = setOf(
+        private val validRange = setOf(
             "1d", "5d", "1mo", "3mo", "6mo",
             "1y", "2y", "5y", "10y", "ytd",
             "max"
         )
 
-        val validInterval = setOf(
+        private val validInterval = setOf(
             "1m", "2m", "5m", "15m", "30m",
             "60m", "90m", "1h", "1d", "5d",
             "1wk", "1mo", "3mo"
@@ -24,11 +24,13 @@ data class RequestParamDto(
 
     fun validation() {
         if (!validRange.contains(range)) {
-            throw StockException(ApiResponseCode.BAD_REQUEST, "Not permitted Range $range")
+            throw StockException(ApiResponseCode.BAD_REQUEST,
+                "$range is invalid, ${validRange.joinToString(", ")}")
         }
 
         if (!validInterval.contains(interval)) {
-            throw StockException(ApiResponseCode.BAD_REQUEST, "Not permitted Interval $interval")
+            throw StockException(ApiResponseCode.BAD_REQUEST,
+                "$interval is invalid, ${validInterval.joinToString(", ")}")
         }
     }
 
