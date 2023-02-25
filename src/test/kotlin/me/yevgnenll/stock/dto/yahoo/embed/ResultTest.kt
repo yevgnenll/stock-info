@@ -1,7 +1,6 @@
 package me.yevgnenll.stock.dto.yahoo.embed
 
 import me.yevgnenll.stock.config.UTC_TIMEZONE
-import me.yevgnenll.stock.dto.yahoo.embed.Result
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.Instant
@@ -22,7 +21,7 @@ class ResultTest {
     @Test
     fun `timestamp 1676419200를 2023-02-15로 변경한다`() {
         Result(timestamp = listOf(1676419200)).let {
-            it.convertTo()
+            it.timestampConvertTo()
         }.first().let {
             assertThat(it).isEqualTo(LocalDateTime.of(2023, 2, 15, 0, 0, 0, 0))
         }

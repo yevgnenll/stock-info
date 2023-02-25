@@ -4,7 +4,7 @@ import me.yevgnenll.stock.util.ReadApiResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class StockInfoDtoTest {
+class YahooResponseDtoTest {
 
     @Test
     fun `API timestamp 5개가 존재하는지 검증한다`() {

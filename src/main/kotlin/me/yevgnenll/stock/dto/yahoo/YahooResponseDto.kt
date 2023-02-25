@@ -3,7 +3,7 @@ package me.yevgnenll.stock.dto.yahoo
 import me.yevgnenll.stock.entity.Stock
 
 
-data class StockInfoDto(
+data class YahooResponseDto(
     val chart: Chart = Chart()
 ) {
 

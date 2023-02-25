@@ -9,11 +9,11 @@ data class StockResponseDto(
     @field:DateTimeFormat(pattern = DATE_FORMAT)
     val date: LocalDate,
     val name: String,
-    val high: Int,
-    val low: Int,
-    val open: Int,
-    val close: Int,
-    val volume: Int,
+    val high: Long,
+    val low: Long,
+    val open: Long,
+    val close: Long,
+    val volume: Long,
 ) {
     constructor(stock: Stock): this(
         name = stock.name,
