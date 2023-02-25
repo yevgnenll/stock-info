@@ -31,7 +31,5 @@ class StockService(
     fun findFiveDays(requestParamDto: RequestParamDto): List<Stock> =
         callStockApiManager.requestStockData(requestParamDto).exportStockEntity().let {
             saveStockList(it)
-        }.sortedBy {
-            it.timestamp
         }
 }
