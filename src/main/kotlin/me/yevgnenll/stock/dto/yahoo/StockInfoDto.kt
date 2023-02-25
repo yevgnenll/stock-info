@@ -10,6 +10,6 @@ data class StockInfoDto(
     fun exportStockEntity(): List<Stock> {
         return chart.result?.map {
             it.separateStockInfo()
-        }!!.flatten()
+        }?.flatten() ?: listOf()
     }
 }
