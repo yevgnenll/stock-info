@@ -12,6 +12,14 @@ class StockExceptionHandler {
         private val logger = LoggerFactory.getLogger(StockExceptionHandler::class.java)
     }
 
+    @ExceptionHandler(Exception::class)
+    fun handleException(
+        e: Exception
+    ): ApiResponseDto<Nothing> {
+        logger.error("Not defined error thrown: {}", e.message)
+        return ApiResponseDto.error(e)
+    }
+
     @ExceptionHandler(StockException::class)
     fun handleStockException(
         e: StockException
