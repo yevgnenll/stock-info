@@ -29,7 +29,7 @@ class StockService(
 
     @Transactional
     fun findFiveDays(requestParamDto: RequestParamDto): List<Stock> =
-        callStockApiManager.requestStockData(requestParamDto).exportStockEntity().let {
+        callStockApiManager.requestStockData(requestParamDto).exportStockEntity().also {
             saveStockList(it)
         }
 }
