@@ -7,6 +7,7 @@ import me.yevgnenll.stock.dto.yahoo.StockInfoDto
 import me.yevgnenll.stock.exception.StockException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
+import org.springframework.web.reactive.function.client.ClientResponse
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
@@ -29,6 +30,11 @@ class CallStockApiManager(
         .build()
         .toUriString()
 
+    private fun error(error: ClientResponse, code: ApiResponseCode): Mono<StockException> =
+        error.bodyToMono(StockInfoDto::class.java).flatMap {
+            Mono.error(StockException(code, it.chart.error!!.description))
+        }
+
     fun requestStockData(
         stockParamDto: StockParamDto,
     ): StockInfoDto = webClient.get()
@@ -37,15 +43,11 @@ class CallStockApiManager(
         .onStatus({
             status :HttpStatus -> status.is4xxClientError
         }) {
-            it.bodyToMono(StockInfoDto::class.java).flatMap {
-                return@flatMap Mono.error(StockException(ApiResponseCode.BAD_REQUEST, it.chart.error!!.description))
-            }
+            error(it, ApiResponseCode.BAD_REQUEST)
         }.onStatus({
             status :HttpStatus -> status.is5xxServerError
         }) {
-            it.bodyToMono(StockInfoDto::class.java).flatMap {
-                return@flatMap Mono.error(StockException(ApiResponseCode.ERROR, it.chart.error!!.description))
-            }
+            error(it, ApiResponseCode.ERROR)
         }
         .bodyToMono(StockInfoDto::class.java)
         .block() ?: throw IllegalStateException()
