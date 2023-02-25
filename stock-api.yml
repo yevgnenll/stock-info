@@ -1,52 +1,108 @@
 openapi: 3.0.1
 info:
-  title: Stock API
-  description: Stock API의 명세서 입니다.
-  version: 1.0.0
+  title: OpenAPI definition
+  version: v0
 servers:
-- url: http://localhost:8080/stocks
+- url: http://localhost:8080
+  description: Generated server url
 tags:
 - name: stockController
-  description: 주식 5일치 API
+  description: 주식 조회 API
 paths:
   /stocks:
     get:
       tags:
       - stockController
-      description: 주식 데이터 5일치 반환
+      description: 주식 조회
       operationId: getFinanceInfo
+      parameters:
+      - name: symbol
+        in: query
+        description: 상장 코드
+        example: 005930.KS
+      - name: interval
+        in: query
+        description: 조회 단위
+        example: 1d
+      - name: range
+        in: query
+        description: 조회 범위
+        example: 5d
+      - name: requestParamDto
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/RequestParamDto'
       responses:
         "200":
-          description: 주식 데이터 5일치 반환 성공
+          description: 성공
           content:
-            application/json:
+            '*/*':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/stock'
+                $ref: '#/components/schemas/ApiResponseDtoListStockResponseDto'
+        "400":
+          description: Paramter Api
+          content:
+            '*/*':
+              example:
+                code: BAD_REQUEST
+                detail: "222d is invalid, 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y,\
+                  \ ytd, max"
+                data: null
+        "500":
+          description: Server Error
+          content:
+            '*/*':
+              example:
+                code: ERROR
+                detail: Server Error
+                data: null
 components:
   schemas:
-    stock:
+    RequestParamDto:
+      type: object
+      properties:
+        symbol:
+          type: string
+        interval:
+          type: string
+        range:
+          type: string
+    ApiResponseDtoListStockResponseDto:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - SUCCESS
+          - ERROR
+          - BAD_REQUEST
+        detail:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/StockResponseDto'
+    StockResponseDto:
       type: object
       properties:
         date:
-          description: 주식의 날짜
-          example: 2023-02-17
+          type: string
+          format: date
         name:
-          description: 주식의 이름
-          example: 005930.KS
+          type: string
         high:
-          description: 주식 최고 가격
-          example: 63300
+          type: integer
+          format: int32
         low:
-          description: 주식 최저 가격
-          example: 62400
+          type: integer
+          format: int32
         open:
-          description: 시장 오픈 가격
-          example: 62900
+          type: integer
+          format: int32
         close:
-          description: 시장 마감 가격
-          example: 62600
+          type: integer
+          format: int32
         volume:
-          description: 거래량
-          example: 28613
+          type: integer
+          format: int32
