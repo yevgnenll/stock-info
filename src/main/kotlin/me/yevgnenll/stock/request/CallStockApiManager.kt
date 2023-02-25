@@ -1,6 +1,7 @@
 package me.yevgnenll.stock.request
 
 import me.yevgnenll.stock.config.YahooProperties
+import me.yevgnenll.stock.controller.StockParamDto
 import me.yevgnenll.stock.dto.yahoo.StockInfoDto
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
@@ -16,21 +17,17 @@ class CallStockApiManager(
         .build()
 
     private fun buildStockUri(
-        symbol: String,
-        interval: String,
-        range: String,
-    ): String = UriComponentsBuilder.fromPath(symbol)
-        .queryParam("interval", interval)
-        .queryParam("range", range)
+        param: StockParamDto
+    ): String = UriComponentsBuilder.fromPath(param.symbol)
+        .queryParam("interval", param.interval)
+        .queryParam("range", param.range)
         .build()
         .toUriString()
 
     fun requestStockData(
-        symbol: String,
-        interval: String,
-        range: String,
+        stockParamDto: StockParamDto,
     ): StockInfoDto = webClient.get()
-        .uri(buildStockUri(symbol, interval, range))
+        .uri(buildStockUri(stockParamDto))
         .retrieve()
         .bodyToMono(StockInfoDto::class.java)
         .block() ?: throw IllegalStateException()
