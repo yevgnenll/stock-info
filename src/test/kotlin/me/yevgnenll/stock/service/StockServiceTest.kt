@@ -38,7 +38,6 @@ class StockServiceTest {
 
     @Test
     fun `API에서 받아온 데이터를 저장한다`() {
-        // case
         val param = RequestParamDto(
             symbol = "005930.KS",
             interval = "1d",
@@ -49,10 +48,8 @@ class StockServiceTest {
             stockService.findFiveDays(it)
         }
 
-        // when
         val date = LocalDate.of(2023, 2, 17)
 
-        // then
         stockRepository.findByTimestampAndName(date, param.symbol).also {
             assertThat(it).isNotNull
         }
@@ -60,7 +57,6 @@ class StockServiceTest {
 
     @Test
     fun `동일한 요청을 2번(이상) 수행하더라도 저장된 주식 데이터는 오로지 1개이다`() {
-        // case : 2번 저장한다
         val param = RequestParamDto(
             symbol = "005930.KS",
             interval = "1d",
@@ -72,10 +68,8 @@ class StockServiceTest {
             stockService.findFiveDays(it)
         }
 
-        // when
         val date = LocalDate.of(2023, 2, 17)
 
-        // then
         assertDoesNotThrow {
             stockRepository.findByTimestampAndName(date, param.symbol)
         }
