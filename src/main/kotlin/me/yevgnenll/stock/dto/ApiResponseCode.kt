@@ -8,6 +8,7 @@ enum class ApiResponseCode(
 ) {
     SUCCESS("Success", HttpStatus.OK),
     ERROR("Server Error", HttpStatus.INTERNAL_SERVER_ERROR),
+    INVALID_STOCK_SIZE("Invalid yahoo API response size", HttpStatus.INTERNAL_SERVER_ERROR),
     BAD_REQUEST("Invalid Parameter", HttpStatus.BAD_REQUEST),
     ;
 
