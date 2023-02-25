@@ -9,9 +9,6 @@ import java.time.ZonedDateTime
 private fun LocalDateTime.convertUtcToKstZonedDateTime(): ZonedDateTime =
     atZone(UTC_TIMEZONE).withZoneSameInstant(KST_TIMEZONE)
 
-fun LocalDateTime.convertUtcToKst(): LocalDateTime =
-    convertUtcToKstZonedDateTime().toLocalDateTime()
-
 private fun LocalDateTime.convertKstToUtcZonedDateTime(): ZonedDateTime =
     atZone(KST_TIMEZONE).withZoneSameInstant(UTC_TIMEZONE)
 
