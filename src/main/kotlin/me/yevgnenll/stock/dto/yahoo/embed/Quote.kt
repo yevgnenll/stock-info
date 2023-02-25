@@ -1,6 +1,8 @@
-package me.yevgnenll.stock.dto.embed
+package me.yevgnenll.stock.dto.yahoo.embed
 
+import me.yevgnenll.stock.dto.ApiResponseCode
 import me.yevgnenll.stock.entity.Stock
+import me.yevgnenll.stock.exception.StockException
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
 
@@ -26,7 +28,7 @@ data class Quote(
 
         if (isNotMatched(xorResult)) {
             logger.error("Stock Quete data length is INVALID")
-            throw IllegalArgumentException("Data is INVALID")
+            throw StockException(ApiResponseCode.INVALID_STOCK_SIZE)
         }
     }
 

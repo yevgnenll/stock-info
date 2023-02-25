@@ -1,19 +1,27 @@
 package me.yevgnenll.stock.dto
 
-data class ApiResponseDto(
-    val code: ApiCode,
+import me.yevgnenll.stock.exception.StockException
+import java.lang.Exception
+
+data class ApiResponseDto<T>(
+    val code: ApiResponseCode,
     val detail: String,
-    val data: Any? = null,
+    val data: T? = null,
 ) {
 
-    constructor(code: ApiCode, data: Any?) : this(
+    constructor(code: ApiResponseCode, data: T) : this(
         code = code,
         detail = code.message,
         data = data
     )
 
     companion object {
-        fun success(data: Any?) = ApiResponseDto(ApiCode.SUCCESS, data)
+        fun <T> success(data: T?) = ApiResponseDto(ApiResponseCode.SUCCESS, data)
+
+        fun error(e: StockException) = ApiResponseDto(e.code, e.message ?: e.localizedMessage, null)
+
+        fun error(e: Exception) = ApiResponseDto(ApiResponseCode.ERROR, e.message ?: e.localizedMessage, null)
+
     }
 
 }

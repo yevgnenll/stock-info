@@ -1,7 +1,7 @@
 package me.yevgnenll.stock.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import me.yevgnenll.stock.dto.StockInfoDto
+import me.yevgnenll.stock.dto.yahoo.StockInfoDto
 import org.springframework.util.ResourceUtils
 
 class ReadApiResponse {

@@ -1,6 +1,6 @@
 package me.yevgnenll.stock.entity
 
-import me.yevgnenll.stock.dto.embed.Quote
+import me.yevgnenll.stock.dto.yahoo.embed.Quote
 import me.yevgnenll.stock.extension.convertKstToUtc
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDate

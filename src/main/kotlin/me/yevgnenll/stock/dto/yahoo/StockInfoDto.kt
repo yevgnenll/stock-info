@@ -1,4 +1,4 @@
-package me.yevgnenll.stock.dto
+package me.yevgnenll.stock.dto.yahoo
 
 import me.yevgnenll.stock.entity.Stock
 
@@ -8,8 +8,8 @@ data class StockInfoDto(
 ) {
 
     fun exportStockEntity(): List<Stock> {
-        return chart.result.map {
+        return chart.result?.map {
             it.separateStockInfo()
-        }.flatten()
+        }?.flatten() ?: listOf()
     }
 }
