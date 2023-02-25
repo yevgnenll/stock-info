@@ -3,7 +3,7 @@ package me.yevgnenll.stock.request
 import me.yevgnenll.stock.config.YahooProperties
 import me.yevgnenll.stock.controller.RequestParamDto
 import me.yevgnenll.stock.dto.ApiResponseCode
-import me.yevgnenll.stock.dto.yahoo.StockInfoDto
+import me.yevgnenll.stock.dto.yahoo.YahooResponseDto
 import me.yevgnenll.stock.exception.StockException
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono
 
 
 @Component
-class CallStockApiManager(
+class CallYahooApiManager(
     yahooProperties: YahooProperties,
 ) {
 
@@ -31,13 +31,13 @@ class CallStockApiManager(
         .toUriString()
 
     private fun error(error: ClientResponse, code: ApiResponseCode): Mono<StockException> =
-        error.bodyToMono(StockInfoDto::class.java).flatMap {
+        error.bodyToMono(YahooResponseDto::class.java).flatMap {
             Mono.error(StockException(code, it.chart.error!!.description))
         }
 
     fun requestStockData(
         requestParamDto: RequestParamDto,
-    ): StockInfoDto = webClient.get()
+    ): YahooResponseDto = webClient.get()
         .uri(buildStockUri(requestParamDto))
         .retrieve()
         .onStatus({
@@ -49,7 +49,7 @@ class CallStockApiManager(
         }) {
             error(it, ApiResponseCode.ERROR)
         }
-        .bodyToMono(StockInfoDto::class.java)
+        .bodyToMono(YahooResponseDto::class.java)
         .block() ?: throw IllegalStateException()
 
 }

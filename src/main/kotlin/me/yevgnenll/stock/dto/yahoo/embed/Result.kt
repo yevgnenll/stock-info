@@ -12,20 +12,20 @@ data class Result(
     val indicators: Indicators = Indicators()
 ) {
 
-    private fun convertTo(timestamp: Long): LocalDateTime {
+    private fun timestampConvertTo(timestamp: Long): LocalDateTime {
         return LocalDateTime.ofInstant(
             Instant.ofEpochSecond(timestamp),
             UTC_TIMEZONE
         )
     }
 
-    fun convertTo(): List<LocalDateTime> {
+    fun timestampConvertTo(): List<LocalDateTime> {
         return timestamp.map {
-            convertTo(it)
+            timestampConvertTo(it)
         }.toList()
     }
 
     fun separateStockInfo(): List<Stock> {
-        return indicators.exportEntities(convertTo(), meta.symbol!!)
+        return indicators.exportEntities(timestampConvertTo(), meta.symbol!!)
     }
 }

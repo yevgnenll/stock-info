@@ -2,7 +2,7 @@ package me.yevgnenll.stock.service
 
 import me.yevgnenll.stock.controller.RequestParamDto
 import me.yevgnenll.stock.repository.StockRepository
-import me.yevgnenll.stock.request.CallStockApiManager
+import me.yevgnenll.stock.request.CallYahooApiManager
 import me.yevgnenll.stock.util.ReadApiResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,14 +23,14 @@ class StockServiceTest {
 
     @MockBean
     @Autowired
-    private lateinit var callStockApiManager: CallStockApiManager
+    private lateinit var callYahooApiManager: CallYahooApiManager
 
     @Autowired
     private lateinit var stockRepository: StockRepository
 
     fun mockingApi(param: RequestParamDto) {
         Mockito.`when`(
-            callStockApiManager.requestStockData(param)
+            callYahooApiManager.requestStockData(param)
         ).then {
             ReadApiResponse.getApiResponse()
         }

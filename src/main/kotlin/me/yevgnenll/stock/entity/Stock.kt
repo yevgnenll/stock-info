@@ -23,12 +23,11 @@ data class Stock(
     val name: String,
     val timestamp: LocalDate,
 
-    // TODO: Int -> Long
-    var low: Int,
-    var high: Int,
-    var close: Int,
-    val open: Int,
-    var volume: Int,
+    var low: Long,
+    var high: Long,
+    var close: Long,
+    val open: Long,
+    var volume: Long,
 
     @Column(name = "created_at", updatable = false)
     var createdAt: LocalDateTime? = null,
@@ -40,11 +39,11 @@ data class Stock(
     constructor(timestamp: List<LocalDateTime>, name: String, quote: Quote, index: Int): this(
         timestamp = timestamp[index].toLocalDate(),
         name = name,
-        high = quote.high[index].toInt(),
-        low = quote.low[index].toInt(),
-        open = quote.open[index].toInt(),
-        close = quote.close[index].toInt(),
-        volume = quote.volume[index].toInt(),
+        high = quote.high[index],
+        low = quote.low[index],
+        open = quote.open[index],
+        close = quote.close[index],
+        volume = quote.volume[index],
     )
 
     @PrePersist

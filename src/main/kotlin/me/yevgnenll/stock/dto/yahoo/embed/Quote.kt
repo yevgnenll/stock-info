@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
 
 data class Quote(
-    val open: List<Double> = listOf(),
-    val high: List<Double> = listOf(),
-    val close: List<Double> = listOf(),
-    val low: List<Double> = listOf(),
-    val volume: List<Double> = listOf()
+    val open: List<Long> = listOf(),
+    val high: List<Long> = listOf(),
+    val close: List<Long> = listOf(),
+    val low: List<Long> = listOf(),
+    val volume: List<Long> = listOf()
 ) {
 
     companion object {
