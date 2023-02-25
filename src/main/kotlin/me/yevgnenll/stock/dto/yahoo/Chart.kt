@@ -1,6 +1,6 @@
-package me.yevgnenll.stock.dto
+package me.yevgnenll.stock.dto.yahoo
 
-import me.yevgnenll.stock.dto.embed.Result
+import me.yevgnenll.stock.dto.yahoo.embed.Result
 
 
 data class Chart(

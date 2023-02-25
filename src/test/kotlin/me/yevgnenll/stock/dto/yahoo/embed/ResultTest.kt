@@ -1,6 +1,7 @@
-package me.yevgnenll.stock.dto.embed
+package me.yevgnenll.stock.dto.yahoo.embed
 
 import me.yevgnenll.stock.config.UTC_TIMEZONE
+import me.yevgnenll.stock.dto.yahoo.embed.Result
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.Instant

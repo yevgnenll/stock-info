@@ -1,7 +1,7 @@
 package me.yevgnenll.stock.request
 
 import me.yevgnenll.stock.config.YahooProperties
-import me.yevgnenll.stock.dto.StockInfoDto
+import me.yevgnenll.stock.dto.yahoo.StockInfoDto
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder

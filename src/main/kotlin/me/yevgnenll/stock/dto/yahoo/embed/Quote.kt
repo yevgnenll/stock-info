@@ -1,4 +1,4 @@
-package me.yevgnenll.stock.dto.embed
+package me.yevgnenll.stock.dto.yahoo.embed
 
 import me.yevgnenll.stock.entity.Stock
 import org.slf4j.LoggerFactory

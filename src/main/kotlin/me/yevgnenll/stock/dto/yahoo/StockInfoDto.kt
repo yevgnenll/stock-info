@@ -1,4 +1,4 @@
-package me.yevgnenll.stock.dto
+package me.yevgnenll.stock.dto.yahoo
 
 import me.yevgnenll.stock.entity.Stock
 

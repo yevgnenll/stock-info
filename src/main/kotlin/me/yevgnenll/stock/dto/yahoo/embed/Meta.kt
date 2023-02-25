@@ -1,4 +1,4 @@
-package me.yevgnenll.stock.dto.embed
+package me.yevgnenll.stock.dto.yahoo.embed
 
 
 data class Meta(

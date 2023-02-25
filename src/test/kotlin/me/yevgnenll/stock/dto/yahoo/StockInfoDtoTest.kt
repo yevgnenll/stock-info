@@ -1,4 +1,4 @@
-package me.yevgnenll.stock.dto
+package me.yevgnenll.stock.dto.yahoo
 
 import me.yevgnenll.stock.util.ReadApiResponse
 import org.assertj.core.api.Assertions.assertThat
