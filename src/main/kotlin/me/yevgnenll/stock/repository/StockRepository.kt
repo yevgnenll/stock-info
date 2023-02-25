@@ -12,4 +12,6 @@ interface StockRepository: JpaRepository<Stock, Long> {
 
     fun findTop5ByNameOrderByTimestampDesc(name: String): List<Stock>
 
+    fun countByTimestampAndName(timestamp: LocalDate, name: String): Long
+
 }
