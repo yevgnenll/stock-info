@@ -41,7 +41,7 @@ class StockController(
         ]
     )
     @GetMapping(path = [""])
-    fun getFinanceInfo(
+    fun fetchApiAndSave(
         requestParamDto: RequestParamDto,
     ): ApiResponseDto<List<StockResponseDto>?> {
         requestParamDto.validation()
