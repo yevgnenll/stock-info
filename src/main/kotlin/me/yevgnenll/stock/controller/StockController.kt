@@ -27,10 +27,10 @@ class StockController(
     )
     @GetMapping(path = [""])
     fun getFinanceInfo(
-        stockParamDto: StockParamDto,
+        requestParamDto: RequestParamDto,
     ): ApiResponseDto<List<StockResponseDto>?> {
-        stockParamDto.validation()
-        return stockService.findFiveDays(stockParamDto).map {
+        requestParamDto.validation()
+        return stockService.findFiveDays(requestParamDto).map {
             StockResponseDto(it)
         }.let {
             ApiResponseDto.success(it)

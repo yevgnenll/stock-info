@@ -3,7 +3,7 @@ package me.yevgnenll.stock.controller
 import me.yevgnenll.stock.dto.ApiResponseCode
 import me.yevgnenll.stock.exception.StockException
 
-data class StockParamDto(
+data class RequestParamDto(
     val symbol: String,
     val interval: String,
     val range: String,

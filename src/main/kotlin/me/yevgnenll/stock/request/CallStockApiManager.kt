@@ -1,7 +1,7 @@
 package me.yevgnenll.stock.request
 
 import me.yevgnenll.stock.config.YahooProperties
-import me.yevgnenll.stock.controller.StockParamDto
+import me.yevgnenll.stock.controller.RequestParamDto
 import me.yevgnenll.stock.dto.ApiResponseCode
 import me.yevgnenll.stock.dto.yahoo.StockInfoDto
 import me.yevgnenll.stock.exception.StockException
@@ -23,7 +23,7 @@ class CallStockApiManager(
         .build()
 
     private fun buildStockUri(
-        param: StockParamDto
+        param: RequestParamDto
     ): String = UriComponentsBuilder.fromPath(param.symbol)
         .queryParam("interval", param.interval)
         .queryParam("range", param.range)
@@ -36,9 +36,9 @@ class CallStockApiManager(
         }
 
     fun requestStockData(
-        stockParamDto: StockParamDto,
+        requestParamDto: RequestParamDto,
     ): StockInfoDto = webClient.get()
-        .uri(buildStockUri(stockParamDto))
+        .uri(buildStockUri(requestParamDto))
         .retrieve()
         .onStatus({
             status :HttpStatus -> status.is4xxClientError

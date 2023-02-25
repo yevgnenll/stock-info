@@ -1,6 +1,6 @@
 package me.yevgnenll.stock.service
 
-import me.yevgnenll.stock.controller.StockParamDto
+import me.yevgnenll.stock.controller.RequestParamDto
 import me.yevgnenll.stock.entity.Stock
 import me.yevgnenll.stock.repository.StockRepository
 import me.yevgnenll.stock.request.CallStockApiManager
@@ -28,8 +28,8 @@ class StockService(
     }
 
     @Transactional
-    fun findFiveDays(stockParamDto: StockParamDto): List<Stock> =
-        callStockApiManager.requestStockData(stockParamDto).exportStockEntity().let {
+    fun findFiveDays(requestParamDto: RequestParamDto): List<Stock> =
+        callStockApiManager.requestStockData(requestParamDto).exportStockEntity().let {
             saveStockList(it)
         }.sortedBy {
             it.timestamp
