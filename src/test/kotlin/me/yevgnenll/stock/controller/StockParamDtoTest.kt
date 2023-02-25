@@ -16,4 +16,13 @@ class StockParamDtoTest {
             assertThat(it.code).isEqualTo(ApiResponseCode.BAD_REQUEST)
         }
     }
+
+    @Test
+    fun `정의되지 않은 interval 파라미터를 받으면 400 에러를 반환한다`() {
+        assertThrows<StockException> {
+            StockParamDto("005930.KS", "999d", "5d").validation()
+        }.also {
+            assertThat(it.code).isEqualTo(ApiResponseCode.BAD_REQUEST)
+        }
+    }
 }
