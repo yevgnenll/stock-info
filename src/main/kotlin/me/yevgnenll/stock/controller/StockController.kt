@@ -22,11 +22,15 @@ class StockController(
         description = "주식 조회",
         responses = [
             ApiResponse(responseCode = "200", description = "성공"),
+            ApiResponse(responseCode = "400", description = "Paramter Error"),
         ]
     )
     @GetMapping(path = [""])
-    fun getFinanceInfo(): ApiResponseDto<List<StockResponseDto>?> {
-        return stockService.findFiveDays().map {
+    fun getFinanceInfo(
+        stockParamDto: StockParamDto,
+    ): ApiResponseDto<List<StockResponseDto>?> {
+        stockParamDto.validation()
+        return stockService.findFiveDays(stockParamDto).map {
             StockResponseDto(it)
         }.let {
             ApiResponseDto.success(it)
