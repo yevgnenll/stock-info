@@ -4,6 +4,7 @@ import me.yevgnenll.stock.dto.ApiResponseDto
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import java.lang.NullPointerException
 
 @RestControllerAdvice
 class StockExceptionHandler {
@@ -17,6 +18,14 @@ class StockExceptionHandler {
         e: Exception
     ): ApiResponseDto<Nothing> {
         logger.error("Not defined error thrown: {}", e.message)
+        return ApiResponseDto.error(e, e.message)
+    }
+
+    @ExceptionHandler(NullPointerException::class)
+    fun handleNullPointException(
+        e: NullPointerException
+    ): ApiResponseDto<Nothing> {
+        logger.error("Null point exception: {}", e.stackTrace)
         return ApiResponseDto.error(e)
     }
 
