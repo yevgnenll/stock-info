@@ -14,19 +14,21 @@ paths:
       tags:
       - stockController
       description: 주식 조회
-      operationId: getFinanceInfo
+      operationId: fetchApiAndSave
       parameters:
       - name: symbol
         in: query
-        description: 상장 코드
+        description: 주식의 상장 코드
+        required: true
         example: 005930.KS
       - name: interval
         in: query
-        description: 조회 단위
+        description: 주식 데이터 조회 단위
         example: 1d
       - name: range
         in: query
-        description: 조회 범위
+        description: 주식 데이터 조회 범위
+        required: true
         example: 5d
       - name: requestParamDto
         in: query
@@ -41,7 +43,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponseDtoListStockResponseDto'
         "400":
-          description: Paramter Api
+          description: Invalid param
           content:
             '*/*':
               example:
@@ -76,6 +78,7 @@ components:
           enum:
           - SUCCESS
           - ERROR
+          - INVALID_STOCK_SIZE
           - BAD_REQUEST
         detail:
           type: string
@@ -93,16 +96,16 @@ components:
           type: string
         high:
           type: integer
-          format: int32
+          format: int64
         low:
           type: integer
-          format: int32
+          format: int64
         open:
           type: integer
-          format: int32
+          format: int64
         close:
           type: integer
-          format: int32
+          format: int64
         volume:
           type: integer
-          format: int32
+          format: int64
