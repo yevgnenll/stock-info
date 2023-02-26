@@ -14,3 +14,11 @@ services:
       - MYSQL_ROOT_PASSWORD=somePassword
     ports:
       - '3306:3306'
+
+  stock_api:
+    container_name: stock_api
+    image: yevgnenll/stock:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - '8080:8080'
