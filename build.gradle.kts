@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "2.7.8"
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.springdoc.openapi-gradle-plugin") version "1.4.0"
+	id("com.google.cloud.tools.jib") version "3.3.1"
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
 	kotlin("plugin.jpa") version "1.7.22"
@@ -53,4 +54,25 @@ openApi { // yaml 파일을 얻어냄
 	outputDir.set(file("$rootDir/"))
 	outputFileName.set("stock-api.yml")
 	waitTimeInSeconds.set(5)
+}
+
+jib {
+	from {
+		image = "adoptopenjdk/openjdk11:alpine-slim"
+	}
+	to {
+		image = "yevgnenll/stock"
+	}
+	container {
+		jvmFlags = listOf(
+			"-Djava.net.preferIPv4Stack=true",
+			"-Dfile.encoding=UTF-8",
+			"-Duser.timezone=UTC",
+			"-XX:+UseG1GC",
+			"-XX:MaxGCPauseMillis=100",
+		)
+		ports = listOf("8080")
+		// https://github.com/GoogleContainerTools/jib/issues/3887
+		creationTime.set("USE_CURRENT_TIMESTAMP")
+	}
 }
