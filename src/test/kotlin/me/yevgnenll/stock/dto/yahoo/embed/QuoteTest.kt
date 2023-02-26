@@ -18,7 +18,7 @@ class QuoteTest {
                 high = listOf(12, 12, 12),
                 low = listOf(13, 13, 13),
                 volume = listOf(14, 14, 14)
-            ).convertTo(listOf(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now()), "name")
+            ).convertToStock(listOf(LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now()), "name")
         }
     }
 

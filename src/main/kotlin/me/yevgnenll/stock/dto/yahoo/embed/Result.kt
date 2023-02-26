@@ -26,6 +26,8 @@ data class Result(
     }
 
     fun separateStockInfo(): List<Stock> {
-        return indicators.exportEntities(timestampConvertTo(), meta.symbol!!)
+        return indicators.quote.map {
+            it.convertToStock(timestampConvertTo(), meta.symbol!!)
+        }.flatten()
     }
 }
