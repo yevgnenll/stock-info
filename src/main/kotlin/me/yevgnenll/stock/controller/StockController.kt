@@ -35,9 +35,9 @@ class StockController(
             ),
         ],
         parameters = [
-            Parameter(name = "symbol", description = "주식의 상장 코드", example = "005930.KS"),
+            Parameter(name = "symbol", description = "주식의 상장 코드", example = "005930.KS", required = true),
             Parameter(name = "interval", description = "주식 데이터 조회 단위", example = "1d"),
-            Parameter(name = "range", description = "주식 데이터 조회 범위", example = "5d"),
+            Parameter(name = "range", description = "주식 데이터 조회 범위", example = "5d", required = true),
         ]
     )
     @GetMapping(path = [""])
