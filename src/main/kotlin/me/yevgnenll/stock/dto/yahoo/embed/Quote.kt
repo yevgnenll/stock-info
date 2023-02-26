@@ -32,13 +32,13 @@ data class Quote(
         }
     }
 
-    private fun convertTo(index: Int, timestamp: List<LocalDateTime>, name: String): Stock =
+    private fun convertToStock(index: Int, timestamp: List<LocalDateTime>, name: String): Stock =
         Stock(timestamp, name, this, index)
 
-    fun convertTo(timestamp: List<LocalDateTime>, name: String): List<Stock> {
+    fun convertToStock(timestamp: List<LocalDateTime>, name: String): List<Stock> {
         validate(timestamp.size)
         return timestamp.indices.map {
-            convertTo(it, timestamp, name)
+            convertToStock(it, timestamp, name)
         }
     }
 }

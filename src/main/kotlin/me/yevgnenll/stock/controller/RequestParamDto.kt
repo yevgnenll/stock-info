@@ -5,7 +5,7 @@ import me.yevgnenll.stock.exception.StockException
 
 data class RequestParamDto(
     val symbol: String,
-    val interval: String,
+    val interval: String? = "1d",
     val range: String,
 ) {
     companion object {
@@ -15,10 +15,9 @@ data class RequestParamDto(
             "max"
         )
 
+        // 확장을 고려해 남겨둔다
         private val validInterval = setOf(
-            "1m", "2m", "5m", "15m", "30m",
-            "60m", "90m", "1h", "1d", "5d",
-            "1wk", "1mo", "3mo"
+            "1d",
         )
     }
 
